@@ -277,7 +277,7 @@ const DEFAULT_DATA = {
     { name: "Lisäjätelavat (B)",                             qty: 2, unit: "kpl", unitPrice: 500,  plan: "B", zone: "yhteinen", note: "Vanhat seinät, katot, tapetit" },
 
     // C — lattialämmitys + märkätilojen täysremontti
-    { name: "Lisäjätelavat (C)",                             qty: 3, unit: "kpl", unitPrice: 500,  plan: "C", zone: "yhteinen", note: "Lattiat + märkätilojen rakenteet" },
-    { name: "Rakennuslupa / muutosilmoitus",                 qty: 1, unit: "kpl", unitPrice: 1200, plan: "C", zone: "yhteinen", note: "Märkätilojen täysremontti vaatii ilmoituksen" }
+    // Omakotitalossa märkätilojen sisäremontti ei yleensä vaadi rakennuslupaa
+    { name: "Lisäjätelavat (C)",                             qty: 3, unit: "kpl", unitPrice: 500,  plan: "C", zone: "yhteinen", note: "Lattiat + märkätilojen rakenteet" }
   ]
 };
