@@ -1,6 +1,6 @@
 // Villa Tarkela - Budjettilaskuri (A/B/C-suunnitelmat)
 
-const STATE_KEY = "villaTarkela.v2";
+const STATE_KEY = "villaTarkela.v3";
 let asbestosPrice = ASBESTOS_REMOVAL_PRICE_PER_M2;
 let state = loadState() || cloneDefaults();
 let selectedPlan = state.meta?.selectedPlan || "B";
