@@ -41,12 +41,13 @@ const DEFAULT_DATA = {
     yhteinen: { name: "Yhteinen / yleinen", color: "#555" }
   },
 
-  // C: vesikiertoiset lattialämmitysputket (omana työnä) + kipsivalu (urakka)
+  // C: vesikiertoiset lattialämmitysputket + kipsivalu — molemmat omana työnä
+  // Kaikki työ on omaa työtä. Ainut hankittava palvelu on asbestipurku.
   extras: {
     floorHeatingPipesPerM2: 22,
     floorHeatingPipesLabel: "Vesikiertoiset lattialämmitysputket (omana työnä, materiaalit)",
-    gypsumScreedPerM2: 45,
-    gypsumScreedLabel: "Kipsivalu (urakka, lattialämmityksen päälle)",
+    gypsumScreedPerM2: 25,
+    gypsumScreedLabel: "Kipsivalu (omana työnä, materiaalit — kipsi-tasoitemassa)",
     floorWorksFromPlan: "C"
   },
 
@@ -55,24 +56,25 @@ const DEFAULT_DATA = {
   materials: {
     floor: [
       {
-        id: "parketti", name: "Parkettilattia (asuintilat)", unit: "€/m²",
+        id: "parketti", name: "Parkettilattia (asuintilat) — materiaalit", unit: "€/m²",
         components: [
-          { name: "Parketti (tarvikkeet)",         price: 35 },
-          { name: "Asennustyö",                     price: 20 },
-          { name: "Alustatyö / tasoitus",           price: 10 }
+          { name: "Parketti",                      price: 30 },
+          { name: "Lattiatasoite + tarvikkeet",    price: 5 },
+          { name: "Aluskate / -nauha",             price: 3 }
         ]
-        // total: 65 €/m²
+        // total: 38 €/m²
       },
       { id: "laminaatti",       name: "Laminaatti",                price: 35 },
       { id: "vinyyli",          name: "Vinyylilankku",             price: 45 },
       {
-        id: "klinkkeri-lattia", name: "Märkätilan lattia (klinkkeri + vedeneristys)", unit: "€/m²",
+        id: "klinkkeri-lattia", name: "Märkätilan lattia (klinkkeri + vedeneristys) — materiaalit", unit: "€/m²",
         components: [
-          { name: "Pohjatasoitus + kallistukset",   price: 25 },
-          { name: "Vedeneriste",                    price: 35 },
-          { name: "Klinkkeri + asennus + saumaus",  price: 50 }
+          { name: "Pohjatasoite + kallistuslaastit",       price: 10 },
+          { name: "Vedeneriste-järjestelmä (materiaalit)", price: 20 },
+          { name: "Klinkkerilaatat",                       price: 25 },
+          { name: "Kiinnityslaasti + saumalaasti",         price: 10 }
         ]
-        // total: 110 €/m²
+        // total: 65 €/m²
       },
       { id: "betoni",           name: "Betonihionta / pinnoite",   price: 55 },
       { id: "lautalattia",      name: "Lautalattia (mänty)",       price: 70 }
@@ -89,14 +91,14 @@ const DEFAULT_DATA = {
       { id: "maali",            name: "Maali (vanhan päälle)",     price: 14 },
       { id: "gyproc-katto",     name: "Gyproc + tasoite + maali",  price: 38 },
       {
-        id: "paneeli", name: "Sisäkattopaneeli", unit: "€/m²",
+        id: "paneeli", name: "Sisäkattopaneeli — materiaalit", unit: "€/m²",
         components: [
-          { name: "Vanhan katon valmistelu / purku", price: 8 },
-          { name: "Koolaus + runko",                  price: 12 },
-          { name: "Paneelit (materiaali)",            price: 25 },
-          { name: "Listoitus + maalaus",              price: 10 }
+          { name: "Koolauspuut + ruuvit",           price: 5 },
+          { name: "Paneelit",                       price: 20 },
+          { name: "Listat",                         price: 3 },
+          { name: "Maali + tarvikkeet",             price: 4 }
         ]
-        // total: 55 €/m²
+        // total: 32 €/m²
       },
       { id: "saunapaneeli",     name: "Saunapaneeli",              price: 60 },
       { id: "akustopaneeli",    name: "Akustopaneeli",             price: 75 }
@@ -107,23 +109,26 @@ const DEFAULT_DATA = {
   // Käytetään partitions-taulukossa typeId:llä
   partitionTypes: [
     {
-      id: "kuiva", name: "Sisäväliseinä (kuiva)", unit: "€/m",
+      id: "kuiva", name: "Sisäväliseinä (kuiva) — materiaalit", unit: "€/m",
       components: [
-        { name: "Puurunko + eristys",               price: 60 },
-        { name: "Gyproc-levyt (molemmin puolin)",   price: 45 },
-        { name: "Tasoite + pohjustus",              price: 25 },
-        { name: "Maalaus",                          price: 18 }
+        { name: "Runkopuu (2x10) + ruuvit",         price: 12 },
+        { name: "Eristysvilla 100mm",                price: 20 },
+        { name: "Gyproc-levyt (molemmin puolin)",   price: 25 },
+        { name: "Tasoite + saumanauhat",            price: 12 },
+        { name: "Maali (molemmin puolin)",          price: 25 }
       ]
-      // total: 148 €/m
+      // total: 94 €/m
     },
     {
-      id: "marka", name: "Märkätilan seinä", unit: "€/m",
+      id: "marka", name: "Märkätilan seinä — materiaalit", unit: "€/m",
       components: [
-        { name: "Kosteudenkestävä gyproc-levy + runko", price: 60 },
-        { name: "Vedeneriste",                          price: 65 },
-        { name: "Klinkkeri + saumaus",                  price: 110 }
+        { name: "Runkopuu + ruuvit",                            price: 12 },
+        { name: "Eristysvilla 100mm",                            price: 20 },
+        { name: "Kosteudenkestävä gyproc-levy (kuiva puoli + märkä puoli)", price: 30 },
+        { name: "Vedeneriste-järjestelmä (materiaalit)",          price: 40 },
+        { name: "Klinkkerilaatat + kiinnityslaasti + saumalaasti", price: 75 }
       ]
-      // total: 235 €/m
+      // total: 177 €/m
     }
   ],
 
@@ -255,28 +260,24 @@ const DEFAULT_DATA = {
     { name: "Pesuallas + hana (Pesuhuone 118)",       qty: 1, unitPrice: 320,  plan: "C", zone: "marka", note: "" },
     { name: "Saunan lauteet + paneelit",              qty: 1, unitPrice: 1800, plan: "C", zone: "marka", note: "Sauna 119" },
     { name: "Saunan ovi (lasi)",                      qty: 1, unitPrice: 450,  plan: "C", zone: "marka", note: "" },
-    { name: "Lattiakaivot uusittu",                   qty: 4, unitPrice: 380,  plan: "C", zone: "marka", note: "KH, Pesu, WC 107, WC 191" },
-    { name: "Lattialämmityksen kytkentä maalämpöön",  qty: 1, unitPrice: 800,  plan: "C", zone: "yhteinen", note: "Putkimies kytkee lattialämmityspiirin olemassa olevaan maalämpöjärjestelmään" }
+    { name: "Lattiakaivot (materiaalit)",             qty: 4, unitPrice: 250,  plan: "C", zone: "marka", note: "KH, Pesu, WC 107, WC 191 — asennus omana työnä" },
+    { name: "Lattialämmitysjakotukki + tarvikkeet",   qty: 1, unitPrice: 500,  plan: "C", zone: "marka", note: "Kytkentä olemassa olevaan maalämpöön omana työnä" }
   ],
 
+  // Erityiskustannukset: vain palvelut, maksut ja materiaalit
+  // Kaikki työ omana työnä (paitsi asbestipurku — pakollinen sertifioitu)
   special: [
-    // A — asbestityöt
-    { name: "Asbestikartoitus (sertifioitu)",                qty: 1,   unit: "kpl", unitPrice: 700,  plan: "A", zone: "yhteinen", note: "Pakollinen 1968 talossa" },
-    { name: "Asbestipurun urakkapalkkio + valmistelu",       qty: 1,   unit: "krt", unitPrice: 2500, plan: "A", zone: "kuiva", note: "Suojaukset, alipaineistus" },
-    { name: "Jätelava (8 m³)",                               qty: 2,   unit: "kpl", unitPrice: 500,  plan: "A", zone: "yhteinen", note: "" },
+    // A — asbestityöt (ainoa hankittava palvelu)
+    { name: "Asbestikartoitus (sertifioitu)",                qty: 1, unit: "kpl", unitPrice: 700,  plan: "A", zone: "yhteinen", note: "Pakollinen sertifioitu tutkimus 1968 talossa" },
+    { name: "Asbestipurku (sertifioitu urakka)",             qty: 1, unit: "krt", unitPrice: 2500, plan: "A", zone: "kuiva",    note: "AINOA HANKITTAVA PALVELU. Sis. suojaukset, alipaineistus, pakkaus" },
+    { name: "Jätelava (8 m³)",                               qty: 2, unit: "kpl", unitPrice: 500,  plan: "A", zone: "yhteinen", note: "Vuokra + nouto + jätemaksu" },
 
-    // B — sisäväliseinien + sisäkattojen purku + märkätilojen pintapäivitys
-    { name: "Vanhojen väliseinien purku (asuintilat)",       qty: 112, unit: "m²", unitPrice: 35,    plan: "B", zone: "kuiva", note: "Ennen gyproc-uusintaa" },
-    { name: "Vanhojen kattojen purku / valmistelu",          qty: 140, unit: "m²", unitPrice: 18,    plan: "B", zone: "kuiva", note: "" },
-    { name: "Vanhojen tapettien / pintamaalien poisto",      qty: 60,  unit: "m²", unitPrice: 12,    plan: "B", zone: "kuiva", note: "" },
-    { name: "Märkätilojen pintapäivitys (laatat vanhan päälle)", qty: 50, unit: "m²", unitPrice: 60, plan: "B", zone: "marka", note: "Klinkkerin vaihto ilman vesieristyksen avaamista" },
-    { name: "Lisäjätelavat (B)",                             qty: 2,   unit: "kpl", unitPrice: 500,  plan: "B", zone: "yhteinen", note: "" },
+    // B — lisäjätettä (sisävaliseinät + katot + pintojen poisto)
+    { name: "Märkätilojen klinkkeri pintapäivitys (materiaalit)", qty: 50, unit: "m²", unitPrice: 30, plan: "B", zone: "marka", note: "Uudet laatat + laasti vanhan päälle. Asennus omana työnä" },
+    { name: "Lisäjätelavat (B)",                             qty: 2, unit: "kpl", unitPrice: 500,  plan: "B", zone: "yhteinen", note: "Vanhat seinät, katot, tapetit" },
 
     // C — lattialämmitys + märkätilojen täysremontti
-    { name: "Vanhojen lattioiden täyspurku",                 qty: 110, unit: "m²", unitPrice: 22,    plan: "C", zone: "kuiva", note: "Lattialämmitystä varten betoniin asti" },
-    { name: "Märkätilojen väliseinien purku",                qty: 45,  unit: "m²", unitPrice: 35,    plan: "C", zone: "marka", note: "" },
-    { name: "Lisäjätelavat (C)",                             qty: 3,   unit: "kpl", unitPrice: 500,  plan: "C", zone: "yhteinen", note: "" },
-    { name: "Rakennuslupa / muutosilmoitus",                 qty: 1,   unit: "kpl", unitPrice: 1200, plan: "C", zone: "yhteinen", note: "Märkätilojen täysremontti vaatii ilmoituksen" },
-    { name: "Sisustus- ja märkätilasuunnittelu",             qty: 1,   unit: "kpl", unitPrice: 2500, plan: "C", zone: "yhteinen", note: "" }
+    { name: "Lisäjätelavat (C)",                             qty: 3, unit: "kpl", unitPrice: 500,  plan: "C", zone: "yhteinen", note: "Lattiat + märkätilojen rakenteet" },
+    { name: "Rakennuslupa / muutosilmoitus",                 qty: 1, unit: "kpl", unitPrice: 1200, plan: "C", zone: "yhteinen", note: "Märkätilojen täysremontti vaatii ilmoituksen" }
   ]
 };
