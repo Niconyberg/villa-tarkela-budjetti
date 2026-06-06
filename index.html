@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Villa Tarkela – Budjettilaskuri</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="header-row">
+    <div>
+      <h1>Villa Tarkela – Remonttibudjetti</h1>
+      <div class="subtitle">1968 rakennettu omakotitalo · Pohjapiirros 1:50</div>
+    </div>
+    <div class="controls">
+      <button id="reset">Palauta oletukset</button>
+      <button id="export">Vie JSON</button>
+      <button id="importBtn">Tuo JSON</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none">
+    </div>
+  </div>
+  <nav>
+    <button data-tab="summary" class="active">Yhteenveto</button>
+    <button data-tab="rooms">Huoneet</button>
+    <button data-tab="materials">Materiaalit</button>
+    <button data-tab="partitions">Väliseinät</button>
+    <button data-tab="fixtures">Kalusteet &amp; varusteet</button>
+    <button data-tab="special">Erityiskustannukset</button>
+    <button data-tab="plan">Pohjapiirros</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- YHTEENVETO -->
+  <section id="summary" class="tab active">
+    <div class="cards">
+      <div class="card">
+        <h3>Kokonaisala</h3>
+        <div class="big" id="totalArea">– m²</div>
+        <div class="sub" id="totalAreaSub">–</div>
+      </div>
+      <div class="card">
+        <h3>1. kerros</h3>
+        <div class="big" id="floor1Area">– m²</div>
+        <div class="sub" id="floor1Sub">–</div>
+      </div>
+      <div class="card">
+        <h3>Kellari</h3>
+        <div class="big" id="floor0Area">– m²</div>
+        <div class="sub" id="floor0Sub">–</div>
+      </div>
+      <div class="card">
+        <h3>Sisäseinät</h3>
+        <div class="big" id="innerWalls">– m</div>
+        <div class="sub" id="innerWallsSub">– m²</div>
+      </div>
+      <div class="card">
+        <h3>Ulkoseinät (sisäpinta)</h3>
+        <div class="big" id="outerWalls">– m</div>
+        <div class="sub" id="outerWallsSub">– m²</div>
+      </div>
+      <div class="card highlight">
+        <h3>Kokonaiskustannukset</h3>
+        <div class="big" id="grandTotal">– €</div>
+        <div class="sub">arvio (alv 24%)</div>
+      </div>
+    </div>
+
+    <h3>Kustannukset luokittain</h3>
+    <table id="breakdownTable"></table>
+
+    <h3>Kalustelaskuri yhteenveto</h3>
+    <table id="fixtureSummaryTable"></table>
+
+    <h3>Kustannukset huoneittain</h3>
+    <table id="roomCostsTable"></table>
+  </section>
+
+  <!-- HUONEET -->
+  <section id="rooms" class="tab">
+    <h2>Huoneet</h2>
+    <p class="hint">Mitat luettu pohjapiirroksesta arviona (1:50). Tarkista jokainen mitta paikan päällä. <strong>Asb.</strong>-rasti merkitsee huoneen jossa epäillään asbestilattiaa - purkukustannukset lasketaan automaattisesti (oletus 80&nbsp;€/m²).</p>
+    <div class="formula">
+      Lattia-ala = L × P · Seinäpinta = (2L + 2P) × K − aukot · Kattopinta = L × P
+    </div>
+    <div style="overflow-x:auto">
+      <table id="roomsTable"></table>
+    </div>
+    <button class="add" id="addRoom">+ Lisää huone</button>
+  </section>
+
+  <!-- MATERIAALIT -->
+  <section id="materials" class="tab">
+    <h2>Materiaalit ja hinnat (€/m², asennettuna)</h2>
+    <p class="hint">Hinnat sisältävät yleensä tarvikkeet + työn. Muokkaa urakoitsijan tarjousten mukaan.</p>
+
+    <h3>Lattiamateriaalit</h3>
+    <table id="floorMatsTable"></table>
+    <button class="add" data-add-mat="floor">+ Lisää lattiamateriaali</button>
+
+    <h3>Seinämateriaalit</h3>
+    <table id="wallMatsTable"></table>
+    <button class="add" data-add-mat="wall">+ Lisää seinämateriaali</button>
+
+    <h3>Kattomateriaalit</h3>
+    <table id="ceilingMatsTable"></table>
+    <button class="add" data-add-mat="ceiling">+ Lisää kattomateriaali</button>
+
+    <h3>Asbestin purku</h3>
+    <div class="note">
+      <strong>Asbestilattian purku:</strong>
+      <input type="number" id="asbestosPrice" step="1" style="width:80px"> €/m²
+      &nbsp; — Sovelletaan automaattisesti niihin huoneisiin joissa Asb.-rasti on päällä.
+    </div>
+  </section>
+
+  <!-- VÄLISEINÄT -->
+  <section id="partitions" class="tab">
+    <h2>Uusien väliseinien rakentaminen</h2>
+    <p class="hint">Käytä tätä uusiin gyproc-seiniin (rungon + eristyksen + tasoitteen + maalin rakentaminen). Olemassa olevien seinien pintakäsittely on huoneiden kohdalla.</p>
+    <table id="partitionsTable"></table>
+    <button class="add" id="addPartition">+ Lisää väliseinä</button>
+  </section>
+
+  <!-- KALUSTEET -->
+  <section id="fixtures" class="tab">
+    <h2>Kalusteet ja varusteet</h2>
+    <p class="hint">WC-istuimet, suihkut, saunan kiuas, keittiön kalusteet, kodinkoneet, vesikalusteet jne.</p>
+    <table id="fixturesTable"></table>
+    <button class="add" id="addFixture">+ Lisää rivi</button>
+  </section>
+
+  <!-- ERITYISKUSTANNUKSET -->
+  <section id="special" class="tab">
+    <h2>Erityiskustannukset</h2>
+    <p class="hint">Purkutyöt, asbestin käsittely, suunnittelu, luvat, jätehuolto, yllätyserä.</p>
+    <div class="note">
+      <strong>Huom:</strong> Asbestilattian purku huoneittain lasketaan automaattisesti huoneiden välilehdellä — se ei ole tässä listassa kaksinkertaisena. Tämä rivi on käsin lisättäville lisäpurkuneliöille (esim. kaapistojen alta löytyvät).
+    </div>
+    <table id="specialTable"></table>
+    <button class="add" id="addSpecial">+ Lisää rivi</button>
+  </section>
+
+  <!-- POHJAPIIRROS -->
+  <section id="plan" class="tab">
+    <h2>Pohjapiirros</h2>
+    <p class="hint">Villa Tarkela 1968 · Arkkitehtitoimisto Olli Parviainen · Mittakaava 1:50</p>
+    <div class="pdf-container">
+      <embed src="Bredantie(2).pdf" type="application/pdf">
+    </div>
+  </section>
+
+</main>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
