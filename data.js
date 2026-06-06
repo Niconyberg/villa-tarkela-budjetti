@@ -21,9 +21,9 @@ const DEFAULT_DATA = {
   },
 
   plans: {
-    A: { name: "Peruskunto (ei lattialämmitystä)", desc: "Kaikki sisäväliseinät uusittu paitsi märkätilojen · kaikki sisäkatot · parkettilattia kaikkialle paitsi märkätiloihin, keittiöön ja eteishalliin · asbestipurku asuintiloista · 2 WC-pyttyä · KH 112:n allas + hana." },
-    B: { name: "Peruskunto + märkätilojen pintaremontti (ei lattialämmitystä)", desc: "A + saunan kiuas · saunan lauteet ja paneelit · pesualtaita ja hanat · märkätilojen pintaremontti (uudet laatat vanhan päälle, vesieristystä EI avata)." },
-    C: { name: "Lattialämmitys + täysremontti", desc: "Vesikiertoinen lattialämmitys liitetään olemassa olevaan maalämpöön. Pakottaa: lattiat kaikkialle (myös eteishalli, keittiö, märkätilat) · kipsivalu · märkätilojen väliseinät uusittu (kosteudenkestävä gyproc) · märkätilojen täysremontti (vesieristys + laatat + kalusteet) · suihkukaapit ja lattiakaivot." }
+    A: { name: "Vain parketit (kaikki muu ennallaan)", desc: "Parkettilattia asuintiloihin + asbestipurku näistä huoneista · 2 WC-pyttyä · KH 112:n pesuallas + hana · asbestikartoitus. Seinät, katot ja kaikki märkätilat säilytetään ennallaan." },
+    B: { name: "A + seinät + katot + märkätilojen pintapäivitys (ei lattialämmitystä)", desc: "A + sisäväliseinien gyproc-uusinta (paitsi märkätilat) · sisäkattopaneelit kaikkialle · saunan kiuas + lauteet + paneelit · pesualtaita + hanat · märkätilojen klinkkerin uusinta vanhan päälle (vesieristys EI avata)." },
+    C: { name: "Lattialämmitys + täysremontti", desc: "Vesikiertoinen lattialämmitys liitetään olemassa olevaan maalämpöön. Pakottaa: lattiat kaikkialle (myös eteishalli, keittiö, märkätilat) · kipsivalu · märkätilojen väliseinät uusittu (kosteudenkestävä gyproc) · märkätilojen täysremontti (vesieristys + laatat + kalusteet) · suihkukaapit + lattiakaivot + kytkentä maalämpöön." }
   },
 
   // C: vesikiertoiset lattialämmitysputket (omana työnä) + kipsivalu (urakka)
@@ -74,71 +74,71 @@ const DEFAULT_DATA = {
 
     { id: "102", name: "Eteishalli",             floor: "1. krs", w: 4.4, l: 3.5, h: 2.5, openings: 4,   outerWallLen: 3.5,
       floorMat: "klinkkeri-lattia", wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "C", wallPlan: "A", ceilPlan: "A", asbestos: false },
+      floorPlan: "C", wallPlan: "B", ceilPlan: "B", asbestos: false },
 
     { id: "103", name: "Keittiö",                floor: "1. krs", w: 2.0, l: 3.0, h: 2.5, openings: 3,   outerWallLen: 2.0,
       floorMat: "vinyyli",          wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "C", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "C", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "104", name: "Ruokailutila",           floor: "1. krs", w: 4.4, l: 5.0, h: 2.5, openings: 6,   outerWallLen: 9.4,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "105", name: "Olohuone",               floor: "1. krs", w: 5.4, l: 4.4, h: 2.5, openings: 8,   outerWallLen: 5.4,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "106", name: "Työhuone",               floor: "1. krs", w: 3.0, l: 3.0, h: 2.5, openings: 3,   outerWallLen: 6.0,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "107", name: "WC 1",                   floor: "1. krs", w: 1.0, l: 1.6, h: 2.5, openings: 1.5, outerWallLen: 0,
       floorMat: "klinkkeri-lattia", wallMat: "klinkkeri-seina", ceilMat: "gyproc-katto",
-      floorPlan: "C", wallPlan: "C", ceilPlan: "A", asbestos: false },
+      floorPlan: "C", wallPlan: "C", ceilPlan: "C", asbestos: false },
 
     { id: "108", name: "Jakelu / pukeutuminen",  floor: "1. krs", w: 1.8, l: 2.2, h: 2.5, openings: 1.5, outerWallLen: 0,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: false },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: false },
 
     { id: "109", name: "Käytävä",                floor: "1. krs", w: 2.4, l: 3.0, h: 2.5, openings: 6,   outerWallLen: 0,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "110", name: "Makuuhuone 1",           floor: "1. krs", w: 3.5, l: 3.5, h: 2.5, openings: 3,   outerWallLen: 3.5,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "111", name: "Vierashuone",            floor: "1. krs", w: 3.5, l: 2.0, h: 2.5, openings: 2,   outerWallLen: 0,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "112", name: "Kylpyhuone (KH)",        floor: "1. krs", w: 1.6, l: 1.6, h: 2.5, openings: 1.5, outerWallLen: 0,
       floorMat: "klinkkeri-lattia", wallMat: "klinkkeri-seina", ceilMat: "gyproc-katto",
-      floorPlan: "C", wallPlan: "C", ceilPlan: "A", asbestos: false },
+      floorPlan: "C", wallPlan: "C", ceilPlan: "C", asbestos: false },
 
     { id: "113", name: "Makuuhuone 2",           floor: "1. krs", w: 2.4, l: 4.0, h: 2.5, openings: 2.5, outerWallLen: 2.4,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "114", name: "Makuuhuone 3",           floor: "1. krs", w: 2.4, l: 4.0, h: 2.5, openings: 2.5, outerWallLen: 2.4,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "115", name: "Perhehuone",             floor: "1. krs", w: 3.4, l: 2.7, h: 2.5, openings: 3,   outerWallLen: 3.4,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: true },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: true },
 
     { id: "116", name: "Kodinhoitohuone",        floor: "1. krs", w: 2.4, l: 1.9, h: 2.5, openings: 2,   outerWallLen: 0,
       floorMat: "klinkkeri-lattia", wallMat: "klinkkeri-seina", ceilMat: "gyproc-katto",
-      floorPlan: "C", wallPlan: "C", ceilPlan: "A", asbestos: false },
+      floorPlan: "C", wallPlan: "C", ceilPlan: "C", asbestos: false },
 
     { id: "117", name: "Pukuhuone",              floor: "1. krs", w: 2.7, l: 3.5, h: 2.5, openings: 2,   outerWallLen: 2.7,
       floorMat: "parketti",         wallMat: "maali",           ceilMat: "paneeli",
-      floorPlan: "A", wallPlan: "A", ceilPlan: "A", asbestos: false },
+      floorPlan: "A", wallPlan: "B", ceilPlan: "B", asbestos: false },
 
     { id: "118", name: "Pesuhuone",              floor: "1. krs", w: 1.9, l: 2.1, h: 2.5, openings: 1.5, outerWallLen: 1.9,
       floorMat: "klinkkeri-lattia", wallMat: "klinkkeri-seina", ceilMat: "gyproc-katto",
-      floorPlan: "C", wallPlan: "C", ceilPlan: "A", asbestos: false },
+      floorPlan: "C", wallPlan: "C", ceilPlan: "C", asbestos: false },
 
     { id: "119", name: "Sauna",                  floor: "1. krs", w: 2.0, l: 2.1, h: 2.3, openings: 1.5, outerWallLen: 2.0,
       floorMat: "klinkkeri-lattia", wallMat: "saunapaneeli",    ceilMat: "saunapaneeli",
@@ -146,7 +146,7 @@ const DEFAULT_DATA = {
 
     { id: "191", name: "WC 2",                   floor: "1. krs", w: 1.0, l: 1.6, h: 2.5, openings: 1.5, outerWallLen: 0,
       floorMat: "klinkkeri-lattia", wallMat: "klinkkeri-seina", ceilMat: "gyproc-katto",
-      floorPlan: "C", wallPlan: "C", ceilPlan: "A", asbestos: false },
+      floorPlan: "C", wallPlan: "C", ceilPlan: "C", asbestos: false },
 
     // KELLARI - ei kosketa missään suunnitelmassa paitsi WC C:ssä
     { id: "01", name: "Harrastetila / sisäänk.", floor: "Kellari", w: 5.9,  l: 3.4,  h: 2.4, openings: 3, outerWallLen: 5.9,
@@ -175,10 +175,10 @@ const DEFAULT_DATA = {
   ],
 
   // Sisäväliseinien gyproc-rakentaminen
-  // A: asuintilojen, keittiön ja eteishallin väliseinät uusittu (paitsi märkätilojen)
+  // B: asuintilojen, keittiön ja eteishallin väliseinät uusittu (paitsi märkätilojen)
   // C: lisäksi märkätilojen seinät (kosteudenkestävä gyproc)
   partitions: [
-    { name: "Sisäväliseinien gyproc-uusinta (asuintilat + keittiö + eteishalli)", length: 45, height: 2.5, price: 75, plan: "A", note: "Ei märkätilojen seiniä. Sis. runko + eristys + levyt molemmin puolin + tasoite (maali huoneissa erikseen)" },
+    { name: "Sisäväliseinien gyproc-uusinta (asuintilat + keittiö + eteishalli)", length: 45, height: 2.5, price: 75, plan: "B", note: "Ei märkätilojen seiniä. Sis. runko + eristys + levyt molemmin puolin + tasoite (maali huoneissa erikseen)" },
     { name: "Märkätilojen väliseinät (kosteudenkestävä gyproc)",                   length: 18, height: 2.5, price: 95, plan: "C", note: "KH, Pesuhuone, WC:t, Kodinhoito" }
   ],
 
@@ -207,16 +207,17 @@ const DEFAULT_DATA = {
   // Erityiskustannukset (purkutyöt, asbesti, suunnittelu)
   // EI sisällä sähkö-/LVI-suunnittelua (asunto asumiskuntoinen, maalämpö jo asennettu)
   special: [
-    // A — asuintilojen täysi pintaremontti + asbestipurku
-    { name: "Asbestikartoitus (sertifioitu)",                qty: 1,   unit: "kpl", unitPrice: 700,  plan: "A", note: "Pakollinen ennen purkutöitä 1968 talossa" },
-    { name: "Asbestipurun urakkapalkkio + valmistelu",       qty: 1,   unit: "krt", unitPrice: 3500, plan: "A", note: "Suojaukset, alipaineistus, jätehuolto — useita huoneita" },
-    { name: "Vanhojen väliseinien purku (asuintilat)",       qty: 112, unit: "m²", unitPrice: 35,    plan: "A", note: "45 m × 2.5 m väliseinää ennen gyproc-uusintaa" },
-    { name: "Vanhojen kattojen purku / valmistelu",          qty: 140, unit: "m²", unitPrice: 18,    plan: "A", note: "Sisäkattopaneelien asennusta varten" },
-    { name: "Jätelava (8 m³)",                               qty: 3,   unit: "kpl", unitPrice: 500,  plan: "A", note: "Asbestipurku + seinä-/kattopurku" },
+    // A — vain lattioiden asbestipurku
+    { name: "Asbestikartoitus (sertifioitu)",                qty: 1,   unit: "kpl", unitPrice: 700,  plan: "A", note: "Pakollinen ennen asbestipurkua 1968 talossa" },
+    { name: "Asbestipurun urakkapalkkio + valmistelu",       qty: 1,   unit: "krt", unitPrice: 2500, plan: "A", note: "Suojaukset, alipaineistus, jätehuolto — lattiapurku usean huoneen alueelle" },
+    { name: "Jätelava (8 m³)",                               qty: 2,   unit: "kpl", unitPrice: 500,  plan: "A", note: "Vanhat lattiat + asbestipurku" },
 
-    // B — märkätilojen pintaremontti ilman vesieristyksen avaamista
+    // B — sisäväliseinien + sisäkattojen + märkätilojen pintapäivityksen purkutyöt
+    { name: "Vanhojen väliseinien purku (asuintilat)",       qty: 112, unit: "m²", unitPrice: 35,    plan: "B", note: "45 m × 2.5 m väliseinää ennen gyproc-uusintaa" },
+    { name: "Vanhojen kattojen purku / valmistelu",          qty: 140, unit: "m²", unitPrice: 18,    plan: "B", note: "Sisäkattopaneelien asennusta varten" },
+    { name: "Vanhojen tapettien / pintamaalien poisto",      qty: 60,  unit: "m²", unitPrice: 12,    plan: "B", note: "Mahdollisesti tarpeen seinien viimeistelyä varten" },
     { name: "Märkätilojen pintapäivitys (laatat vanhan päälle)", qty: 30, unit: "m²", unitPrice: 75, plan: "B", note: "Klinkkerin vaihto seinään ilman vesieristyksen avaamista" },
-    { name: "Lisäjätelava",                                  qty: 1,   unit: "kpl", unitPrice: 500,  plan: "B", note: "" },
+    { name: "Lisäjätelavat (B)",                             qty: 2,   unit: "kpl", unitPrice: 500,  plan: "B", note: "Seinä- ja kattopurku, märkätilojen pinnat" },
 
     // C — lattialämmitys + märkätilojen täysremontti
     { name: "Vanhojen lattioiden täyspurku",                 qty: 110, unit: "m²", unitPrice: 22,    plan: "C", note: "Lattialämmityksen vuoksi koko lattia avataan betoniin asti" },
