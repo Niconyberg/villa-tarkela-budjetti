@@ -172,6 +172,94 @@ tr.inactive td {
   background: #f9f9f5;
 }
 
+.zone-tag, .zone-select {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+.zone-tag.zone-kuiva, .zone-select.zone-kuiva { background: #e8eef5; color: #2c4a7c; }
+.zone-tag.zone-marka, .zone-select.zone-marka { background: #f5e8e8; color: #7c2c2c; }
+.zone-tag.zone-keittio, .zone-select.zone-keittio { background: #f5efe0; color: #7c5c2c; }
+.zone-tag.zone-yhteinen, .zone-select.zone-yhteinen { background: #ededed; color: #555; }
+
+.zone-select {
+  border: 1px solid transparent;
+  cursor: pointer;
+  font: inherit;
+}
+.zone-select:focus { outline: 2px solid var(--accent); }
+
+.nested-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.4rem 0 0.6rem 1.5rem;
+  background: #fafaf6;
+  border-left: 3px solid var(--accent-light);
+  border-radius: 0 4px 4px 0;
+}
+.nested-table th, .nested-table td {
+  padding: 0.3rem 0.5rem;
+  font-size: 0.8rem;
+  border-bottom: 1px dashed var(--line);
+}
+.nested-table th { background: transparent; text-transform: none; letter-spacing: 0; color: var(--muted); font-weight: 500; }
+
+tr.component-rows > td { padding: 0; background: #fafaf6; }
+
+.link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.4rem;
+  text-decoration: underline;
+}
+.link:hover { color: var(--accent-light); }
+
+.ptypes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 1rem;
+}
+.ptype-box {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  box-shadow: var(--shadow);
+}
+.ptype-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+.ptype-name {
+  font-weight: 600;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 0.95rem;
+  flex: 1;
+  font-family: inherit;
+}
+.ptype-name:focus { background: var(--highlight); border-color: var(--line); outline: none; }
+.ptype-total {
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.ptype-box .nested-table {
+  margin: 0;
+  border-left: none;
+}
+
 nav {
   display: flex;
   gap: 0.25rem;

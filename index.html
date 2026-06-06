@@ -73,10 +73,13 @@
       </div>
     </div>
 
+    <h3>Kustannukset vyöhykkeittäin</h3>
+    <table id="zoneTable"></table>
+
     <h3>Suunnitelmien vertailu</h3>
     <table id="comparisonTable"></table>
 
-    <h3>Kustannukset luokittain (suunnitelma <span class='inline-plan' id='currentPlan'></span>)</h3>
+    <h3>Kustannukset luokittain</h3>
     <table id="breakdownTable"></table>
 
     <h3>Varusteet suunnitelmassa</h3>
@@ -137,10 +140,14 @@
 
   <!-- VÄLISEINÄT -->
   <section id="partitions" class="tab">
-    <h2>Uusien väliseinien rakentaminen</h2>
-    <p class="hint">Käytä tätä uusiin gyproc-seiniin (runko + eristys + tasoite + maali). Olemassa olevien seinien pintakäsittely tehdään huoneiden välilehdellä.</p>
+    <h2>Sisäväliseinät</h2>
+    <p class="hint">Pituus × tyypin €/m. Hinnat tulevat Väliseinätyypit-kohdasta alla.</p>
     <table id="partitionsTable"></table>
     <button class="add" id="addPartition">+ Lisää väliseinä</button>
+
+    <h3>Väliseinätyypit (komponentteineen)</h3>
+    <p class="hint">Hintapaketit per metri — muokkaa komponentteja niin kokonaishinta päivittyy automaattisesti.</p>
+    <div id="partitionTypesContainer" class="ptypes"></div>
   </section>
 
   <!-- KALUSTEET -->
