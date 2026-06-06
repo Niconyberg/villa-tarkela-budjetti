@@ -12,7 +12,7 @@
   <div class="header-row">
     <div>
       <h1>Villa Tarkela – Remonttibudjetti</h1>
-      <div class="subtitle">1968 rakennettu omakotitalo · Pohjapiirros 1:50</div>
+      <div class="subtitle">1968 rakennettu omakotitalo · Asunto on asumiskuntoinen — kellariin ei kosketa</div>
     </div>
     <div class="controls">
       <button id="reset">Palauta oletukset</button>
@@ -21,6 +21,10 @@
       <input type="file" id="importFile" accept="application/json" style="display:none">
     </div>
   </div>
+
+  <div id="planSelector" class="plan-selector"></div>
+  <div id="planDesc" class="plan-desc"></div>
+
   <nav>
     <button data-tab="summary" class="active">Yhteenveto</button>
     <button data-tab="rooms">Huoneet</button>
@@ -63,28 +67,33 @@
         <div class="sub" id="outerWallsSub">– m²</div>
       </div>
       <div class="card highlight">
-        <h3>Kokonaiskustannukset</h3>
+        <h3>Valittu suunnitelma</h3>
         <div class="big" id="grandTotal">– €</div>
-        <div class="sub">arvio (alv 24%)</div>
+        <div class="sub" id="grandTotalSub">–</div>
       </div>
     </div>
 
-    <h3>Kustannukset luokittain</h3>
+    <h3>Suunnitelmien vertailu</h3>
+    <table id="comparisonTable"></table>
+
+    <h3>Kustannukset luokittain (suunnitelma <span class='inline-plan' id='currentPlan'></span>)</h3>
     <table id="breakdownTable"></table>
 
-    <h3>Kalustelaskuri yhteenveto</h3>
+    <h3>Varusteet suunnitelmassa</h3>
     <table id="fixtureSummaryTable"></table>
 
-    <h3>Kustannukset huoneittain</h3>
+    <h3>Remontoituvat huoneet</h3>
     <table id="roomCostsTable"></table>
   </section>
 
   <!-- HUONEET -->
   <section id="rooms" class="tab">
     <h2>Huoneet</h2>
-    <p class="hint">Mitat luettu pohjapiirroksesta arviona (1:50). Tarkista jokainen mitta paikan päällä. <strong>Asb.</strong>-rasti merkitsee huoneen jossa epäillään asbestilattiaa - purkukustannukset lasketaan automaattisesti (oletus 80&nbsp;€/m²).</p>
+    <p class="hint">Mitat luettu pohjapiirroksesta arviona (1:50). Tarkista jokainen mitta paikan päällä.</p>
+    <p class="hint">Plan-sarakkeet (L↺ S↺ K↺) määräävät missä suunnitelmassa lattian, seinän tai katon remontti tehdään. <strong>A</strong> = sis. A,B,C · <strong>B</strong> = sis. B,C · <strong>C</strong> = vain C · <strong>—</strong> = ei tehdä missään.</p>
+    <p class="hint"><strong>Asb.</strong>-rasti aktivoi asbestilattian purun automaattisesti (lasketaan vain jos lattia uusitaan kyseisessä suunnitelmassa).</p>
     <div class="formula">
-      Lattia-ala = L × P · Seinäpinta = (2L + 2P) × K − aukot · Kattopinta = L × P
+      Lattia = L × P · Seinä = (2L + 2P) × K − aukot · Katto = L × P · B/C: + lattialämmitysputket + kipsivalu
     </div>
     <div style="overflow-x:auto">
       <table id="roomsTable"></table>
@@ -109,18 +118,27 @@
     <table id="ceilingMatsTable"></table>
     <button class="add" data-add-mat="ceiling">+ Lisää kattomateriaali</button>
 
+    <h3>Lattian alustyö (B + C)</h3>
+    <div class="note">
+      <strong>Lattialämmitysputket</strong> (omana työnä, vain materiaalit):
+      <input type="number" id="fhPrice" step="1" style="width:80px"> €/m²<br>
+      <strong>Kipsivalu</strong> (urakkana, lattialämmityksen päälle):
+      <input type="number" id="gsPrice" step="1" style="width:80px"> €/m²<br>
+      <span style="color:var(--muted)">Sovelletaan automaattisesti kaikkiin huoneisiin joissa lattia uusitaan suunnitelmissa B tai C.</span>
+    </div>
+
     <h3>Asbestin purku</h3>
     <div class="note">
       <strong>Asbestilattian purku:</strong>
       <input type="number" id="asbestosPrice" step="1" style="width:80px"> €/m²
-      &nbsp; — Sovelletaan automaattisesti niihin huoneisiin joissa Asb.-rasti on päällä.
+      <span style="color:var(--muted)">— sovelletaan automaattisesti niihin huoneisiin joissa Asb.-rasti on päällä JA lattia uusitaan valitussa suunnitelmassa.</span>
     </div>
   </section>
 
   <!-- VÄLISEINÄT -->
   <section id="partitions" class="tab">
     <h2>Uusien väliseinien rakentaminen</h2>
-    <p class="hint">Käytä tätä uusiin gyproc-seiniin (rungon + eristyksen + tasoitteen + maalin rakentaminen). Olemassa olevien seinien pintakäsittely on huoneiden kohdalla.</p>
+    <p class="hint">Käytä tätä uusiin gyproc-seiniin (runko + eristys + tasoite + maali). Olemassa olevien seinien pintakäsittely tehdään huoneiden välilehdellä.</p>
     <table id="partitionsTable"></table>
     <button class="add" id="addPartition">+ Lisää väliseinä</button>
   </section>
@@ -128,7 +146,7 @@
   <!-- KALUSTEET -->
   <section id="fixtures" class="tab">
     <h2>Kalusteet ja varusteet</h2>
-    <p class="hint">WC-istuimet, suihkut, saunan kiuas, keittiön kalusteet, kodinkoneet, vesikalusteet jne.</p>
+    <p class="hint">WC-istuimet, suihkut, saunan kiuas, vesikalusteet jne. Jokaiselle riville voi valita missä suunnitelmassa se sisältyy.</p>
     <table id="fixturesTable"></table>
     <button class="add" id="addFixture">+ Lisää rivi</button>
   </section>
@@ -136,9 +154,9 @@
   <!-- ERITYISKUSTANNUKSET -->
   <section id="special" class="tab">
     <h2>Erityiskustannukset</h2>
-    <p class="hint">Purkutyöt, asbestin käsittely, suunnittelu, luvat, jätehuolto, yllätyserä.</p>
+    <p class="hint">Asbestityöt, purkutyöt, suunnittelu, luvat, jätehuolto.</p>
     <div class="note">
-      <strong>Huom:</strong> Asbestilattian purku huoneittain lasketaan automaattisesti huoneiden välilehdellä — se ei ole tässä listassa kaksinkertaisena. Tämä rivi on käsin lisättäville lisäpurkuneliöille (esim. kaapistojen alta löytyvät).
+      <strong>Huom:</strong> Asbestilattian purku huoneittain lasketaan automaattisesti huoneiden välilehdellä (Asb.-rastista). Tämä lista on muut erityiskustannukset.
     </div>
     <table id="specialTable"></table>
     <button class="add" id="addSpecial">+ Lisää rivi</button>

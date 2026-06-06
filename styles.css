@@ -78,6 +78,100 @@ button.add {
 
 button.add:hover { background: var(--accent-light); }
 
+.plan-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 0.5rem 0 0.5rem;
+}
+
+.plan-card {
+  background: white;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 0.6rem;
+  transition: all 0.15s ease;
+}
+
+.plan-card:hover {
+  border-color: var(--accent-light);
+  background: #fefcf6;
+}
+
+.plan-card.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 2px 8px rgba(45, 93, 58, 0.25);
+}
+
+.plan-letter {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.plan-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.plan-total {
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.plan-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--highlight);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent);
+}
+
+.inline-plan::after { content: attr(data-plan); }
+#currentPlan::after { content: ""; }
+
+.plan-select {
+  font-weight: 700;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.plan-select.plan-A { background: #e8f0e3; color: #2d5d3a; }
+.plan-select.plan-B { background: #e8eef5; color: #2c4a7c; }
+.plan-select.plan-C { background: #f5e8e8; color: #7c2c2c; }
+.plan-select.plan-- { background: #ededed; color: #999; }
+
+.plan-tag {
+  display: inline-block;
+  padding: 0.05rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+.plan-tag.plan-A { background: #e8f0e3; color: #2d5d3a; }
+.plan-tag.plan-B { background: #e8eef5; color: #2c4a7c; }
+.plan-tag.plan-C { background: #f5e8e8; color: #7c2c2c; }
+
+tr.inactive {
+  opacity: 0.4;
+}
+tr.inactive td {
+  background: #f9f9f5;
+}
+
 nav {
   display: flex;
   gap: 0.25rem;
